@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/davecgh/go-spew/spew"
-	"github.com/joho/godotenv"
 	"log"
 	"time"
 )
@@ -10,10 +9,6 @@ import (
 var blockchain Blockchain
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	go func() {
 		t := time.Now()

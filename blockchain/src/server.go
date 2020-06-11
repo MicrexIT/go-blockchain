@@ -18,10 +18,10 @@ type Message struct {
 func run() error {
 
 	handler := makeMuxRouter()
-	httpAddr := os.Getenv("PORT")
-	log.Println("Listening on ", os.Getenv("PORT"))
+	port := environmentVariables()
+	log.Println("Listening on ", port)
 	s := &http.Server{
-		Addr:           ":" + httpAddr,
+		Addr:           ":" + port,
 		Handler:        handler,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
@@ -86,4 +86,13 @@ func respondWithJSON(w http.ResponseWriter, r *http.Request, code int, payload i
 	}
 	w.WriteHeader(code)
 	_, _ = w.Write(response)
+}
+
+func environmentVariables() ( port string) {
+	port, ok := os.LookupEnv("ENTITY_STORE")
+	if !ok {
+		port= "8080"
+	}
+	return
+
 }
